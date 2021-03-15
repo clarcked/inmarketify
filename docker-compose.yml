@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  inmarketify:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: inmarketify
+    volumes:
+      - ./www:/var/www/html
+    restart: always
+    depends_on:
+      - pgsql
+    ports:
+      - 80:80
+    expose:
+      - 80
+  pgsql:
+    container_name: pgsql
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ""
+      POSTGRES_USER: root
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./databases/pgsql:/var/pgsql
+
+volumes:
+  inmarketify:
+  pgsql:
+
