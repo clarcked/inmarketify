@@ -1,4 +1,4 @@
 /.env
 /.env.locale
 /www/*
-/databases/*
+/databases/* 
