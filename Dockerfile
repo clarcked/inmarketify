@@ -20,9 +20,11 @@ COPY ./www ./
 RUN sed -i '/#!\/bin\/sh/aservice sendmail restart' /usr/local/bin/docker-php-entrypoint
 RUN sed -i '/#!\/bin\/sh/aecho "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts' /usr/local/bin/docker-php-entrypoint
 ####>
+
+COPY ./config/cert /etc/apache2/cert
 COPY ./config/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
 # COPY ./config/apache2/mods-enabled/proxy.conf /etc/apache2/mods-enabled/proxy.conf
 COPY ./config/php/php.ini /usr/local/etc/php/php.ini
-RUN a2enmod rewrite proxy proxy_http proxy_wstunnel proxy_balancer lbmethod_byrequests
+RUN a2enmod ssl rewrite proxy proxy_http proxy_wstunnel proxy_balancer lbmethod_byrequests
 RUN /etc/init.d/apache2 restart
-EXPOSE 80
+EXPOSE 80 443

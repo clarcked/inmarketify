@@ -7,13 +7,16 @@ services:
     container_name: inmarketify
     volumes:
       - ./www:/var/www/html
+      - ./config:/var/www/config
     restart: always
     depends_on:
       - pgsql
     ports:
       - 80:80
+      - 443:443
     expose:
       - 80
+      - 443
   pgsql:
     container_name: pgsql
     image: postgres
