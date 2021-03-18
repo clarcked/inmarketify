@@ -1,5 +1,5 @@
 /.env
 /.env.locale
-/www/*
-/databases/*
-/packages/*
+/www
+/databases
+/packages
