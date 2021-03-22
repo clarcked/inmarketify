@@ -11,12 +11,24 @@ services:
     restart: always
     depends_on:
       - pgsql
+      - next
     ports:
       - 80:80
       - 443:443
     expose:
       - 80
       - 443
+  next:
+    build:
+      context: ./packages/next.im/
+      dockerfile: Dockerfile
+    container_name: next 
+    volumes:
+      - ./packages/next.im/:/usr/src
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
   pgsql:
     container_name: pgsql
     image: postgres
@@ -29,8 +41,8 @@ services:
     expose:
       - 5433
     volumes:
-      - ./databases/sql/postsgres:/var/lib/pgsql
-
+      - ./databases/postgresql:/var/lib/postgresql/data
 volumes:
   inmarketify:
   pgsql:
+  next:

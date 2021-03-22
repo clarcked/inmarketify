@@ -27,4 +27,4 @@ COPY ./config/apache2/sites-available/000-default.conf /etc/apache2/sites-availa
 COPY ./config/php/php.ini /usr/local/etc/php/php.ini
 RUN a2enmod ssl rewrite proxy proxy_http proxy_wstunnel proxy_balancer lbmethod_byrequests
 RUN /etc/init.d/apache2 restart
-EXPOSE 80 443
+EXPOSE 80 443 
