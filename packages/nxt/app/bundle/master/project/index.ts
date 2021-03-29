@@ -5,7 +5,7 @@ import {ProjectEntity} from "./entity";
 import ProjectForm from "./form";
 import ProjectEntityManager from "./manager";
 import ProjectMenu from "./menu";
-import ProjectList from "./projectList";
+import ProjectList from "./list";
 import {GET_FULL_PROJECTS, GET_PROJECT, GET_PROJECTS} from "./queries";
 
 export {

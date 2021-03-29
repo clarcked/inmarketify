@@ -2,6 +2,7 @@ import React from 'react';
 import {useForm} from "react-hook-form";
 import CategoryForm from './form';
 import {withManager} from "../../../core/entity";
+import CategoryEntityManager from "./manager";
 
 
 let CategoryCreator: any = (props) => {
@@ -27,10 +28,11 @@ let CategoryCreator: any = (props) => {
             console.warn(e.message, "category creator: submit")
         }
     }
+
     return (
-        <CategoryForm {...props} data={null} onSubmit={handleSubmit(submit)} register={register}/>
+        <CategoryForm {...props} data={null} onSubmit={handleSubmit(submit)} reset={reset} register={register}/>
     );
 
 }
-CategoryCreator = withManager(CategoryCreator)
+CategoryCreator = withManager(CategoryCreator, CategoryEntityManager)
 export default CategoryCreator;

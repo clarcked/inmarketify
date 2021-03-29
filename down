@@ -1,2 +1,2 @@
 #!/bin/bash
-docker-compose stop inmarketify pgsql next
+docker-compose stop inmarketify pgsql api nxt

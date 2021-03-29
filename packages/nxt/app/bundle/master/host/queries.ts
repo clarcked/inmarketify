@@ -10,6 +10,8 @@ export const GET_HOSTS = gql`
                     status
                     note
                     name
+                    ip
+                    region
                 }
             }
         }
@@ -28,6 +30,8 @@ export const GET_FULL_HOSTS = gql`
                     status
                     note
                     name
+                    ip
+                    region
                 }
             }
         }
@@ -44,5 +48,7 @@ export const GET_HOST = gql`
             status
             note
             name
+            ip
+            region
         }
     }`

@@ -1,3 +1,5 @@
+import {sanitize} from "../utils";
+
 export default class RestHttp {
     base_url: any;
     headers: any;
@@ -14,7 +16,7 @@ export default class RestHttp {
 
     url = (path: string) => `${this.base_url}${path}`;
 
-    body = (data: any) => (typeof data === "object" ? JSON.stringify(data) : data);
+    body = (data: any) => (typeof data === "object" ? JSON.stringify(sanitize(data)) : data);
 
     options = (arg: any) => {
         let options: any = {};

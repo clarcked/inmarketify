@@ -5,7 +5,7 @@ import {HostEntity} from "./entity";
 import HostForm from "./form";
 import HostEntityManager from "./manager";
 import HostMenu from "./menu";
-import List from "./list";
+import HostList from "./list";
 import {GET_FULL_HOSTS, GET_HOST, GET_HOSTS} from "./queries";
 
 export {
@@ -19,5 +19,5 @@ export {
     HostCreator,
     HostEditor,
     HostMenu,
-    List
+    HostList
 }

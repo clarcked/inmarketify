@@ -1,58 +1,53 @@
 import React, {useEffect} from 'react';
 import {useQuery} from "@apollo/client";
-import {GET_HOSTS} from "./queries";
+import {GET_PROJECTS} from "./queries";
 import {Loader} from '../../../core/comps';
-import {MdClose, MdEdit} from 'react-icons/md';
+import {MdClose, MdEdit} from "react-icons/md";
 import {withManager} from "../../../core/entity";
-import HostEntityManager from "./manager";
+import ProjectEntityManager from "./manager";
 
-let HostList: any = (props) => {
+let ProjectList: any = (props) => {
     const {Manager} = props
-    const {data, loading, error, refetch} = useQuery(GET_HOSTS, {
-        fetchPolicy: "network-only",
+    const {data, loading, error, refetch} = useQuery(GET_PROJECTS, {
+        fetchPolicy: "cache-and-network",
         context: {headers: {"im-project-tag": "master"}}
-    })
+    });
 
     const remove = async (arg) => {
-        try {
-            const res = await Manager?.delete(arg?.id, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "im-project-tag": "master"
-                }
-            })
-            if (res) alert(`feature has been deleted..!`)
-        } catch (e) {
-            console.warn(e.message, "feature list: remove")
-        } finally {
-            await refetch()
-        }
-    }
+        const res = await Manager.delete(arg?.id, {headers: {"im-project-tag": "master"}})
+        console.log(res)
+        if (res) alert(`Project has been removed..!`)
+        await refetch()
+    };
 
     const edit = (arg) => {
     }
 
     useEffect(() => {
         refetch().then()
-    }, [Manager])
+    }, [Manager, refetch])
 
-    if (error) console.log(error.message)
     if (loading) return <Loader/>
+    if (error) console.log(error.message)
     return (
         <div className="pad h-expand scroll">
             <table className="table">
                 <tbody>
                 <tr>
-                    <th>Host Name</th>
-                    <th>Ip Address</th>
-                    <th>Region</th>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Category</th>
+                    <th>Host</th>
                     <th></th>
                 </tr>
-                {data?.hosts?.edges?.map(({node: o}, idx) =>
-                    (<tr key={idx}>
+                {data?.projects?.edges?.map(({node: o}, idx) => (
+                    <tr key={idx}>
+                        <td>{o._id}</td>
                         <td>{o.name}</td>
-                        <td>{o.ip}</td>
-                        <td>{o.region}</td>
+                        <td>{o.country}</td>
+                        <td>{o.category?.name}</td>
+                        <td>{o.host?.name}</td>
                         <td>
                             <div className="actions rows gap j-right a-center">
                                 <div className="col">
@@ -71,5 +66,5 @@ let HostList: any = (props) => {
         </div>
     );
 }
-HostList = withManager(HostList, HostEntityManager)
-export default HostList;
+ProjectList = withManager(ProjectList, ProjectEntityManager)
+export default ProjectList;

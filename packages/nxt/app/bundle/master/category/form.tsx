@@ -7,7 +7,7 @@ import {GET_CATEGORIES} from "./queries";
 
 class CategoryForm extends Component<any & { onSubmit, register, data }, any> {
     render() {
-        const {onSubmit, register} = this.props
+        const {onSubmit, register, reset} = this.props
         return (
             <form className="w-300 h-expand form wire-r grid-r-1-a" onSubmit={onSubmit}>
                 <section className="grid-r-a-1">
@@ -17,7 +17,7 @@ class CategoryForm extends Component<any & { onSubmit, register, data }, any> {
                         </div>
                     </section>
                     <section className="pad no-pad-t scroll">
-                        <CategoryList {...this.props} name="categories" query={GET_CATEGORIES}/>
+                        <CategoryList {...this.props} reset={reset} name="categories" query={GET_CATEGORIES}/>
                     </section>
                 </section>
                 <section className="pad">

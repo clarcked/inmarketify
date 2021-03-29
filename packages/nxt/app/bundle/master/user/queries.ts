@@ -1,24 +1,25 @@
 import {gql} from "@apollo/client";
 
-export const GET_CATEGORIES = gql`
-    query GetCategories {
-        categories {
+export const GET_USERS = gql`
+    query GetUsers {
+        users {
             edges {
                 node {
                     id
                     _id 
                     status
                     note
-                    name
+                    username
+                    email 
                 }
             }
         }
     }
 `;
 
-export const GET_FULL_CATEGORIES = gql`
-    query GetCategories {
-        categories {
+export const GET_FULL_USERS = gql`
+    query GetUsers {
+        users {
             edges {
                 node {
                     id
@@ -26,25 +27,25 @@ export const GET_FULL_CATEGORIES = gql`
                     createdAt
                     modifiedAt
                     status
-                    note
-                    name
+                    note 
+                    username
+                    email 
                 }
             }
         }
     }
 `;
 
-export const GET_CATEGORY = gql`
-    query GetCategory($id: ID!) {
-        category(id: $id) {
+export const GET_USER = gql`
+    query GetUser($id: ID!) {
+        user(id: $id) {
             id
             _id
             createdAt
             modifiedAt
             status
             note
-            name
-            ip
-            region
+            username
+            email 
         }
     }`

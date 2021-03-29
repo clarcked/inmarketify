@@ -3,6 +3,7 @@ import {Graphql, RestHttp} from "../net";
 import {ApolloClient} from "@apollo/client";
 import {initializeRestHttp} from "../providers/rest";
 import {isUrl} from "../utils";
+import {initializeApollo} from "../providers";
 
 
 type EntityManagerProps = { rest: RestHttp, graphql: ApolloClient<any>, name: string, query: any, fullQuery: any, findQuery: any }
@@ -19,7 +20,7 @@ export class EntityManager {
     constructor({rest, graphql, name, query, fullQuery, findQuery}: EntityManagerProps) {
         this.name = name
         this.rest = initializeRestHttp(rest)
-        this.graph = new Graphql(graphql)
+        this.graph = new Graphql(initializeApollo(graphql))
         this.GET_ENTITY = findQuery
         this.GET_FULL_ENTITIES = fullQuery
         this.GET_ENTITIES = query
@@ -87,13 +88,14 @@ export class EntityManager {
     }
 }
 
-export function withManager(Wrapped: any) {
+export function withManager(Wrapped: any, Manager: typeof EntityManager) {
     return class Wrapper extends React.Component<EntityManagerProps & { children?: React.ReactNode }, any> {
         render() {
-            if (!this.props.name) console.warn('name property is missing, manager will not load properly', "render manager")
-            if (!this.props.rest) console.warn('rest client is missing, manager will not load properly', "render manager")
-            if (!this.props.graphql) console.warn('graphql client is missing, manager will not load properly', "render manager")
-            return <Wrapped {...this.props} Manager={new EntityManager(this.props)}/>
+            if (!Manager) console.warn("A manager is required!", "with manager")
+            if (!this.props.name) console.warn('name property is missing, manager will not load properly', "with manager")
+            if (!this.props.rest) console.warn('rest client is missing, manager will not load properly', "with manager")
+            if (!this.props.graphql) console.warn('graphql client is missing, manager will not load properly', "with manager")
+            return <Wrapped {...this.props} Manager={new Manager(this.props)}/>
         }
     };
 }

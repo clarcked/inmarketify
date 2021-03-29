@@ -1,18 +1,17 @@
 import React, {useEffect} from 'react';
 import {useQuery} from "@apollo/client";
-import {GET_HOSTS} from "./queries";
+import {GET_FEATURES} from "./queries";
 import {Loader} from '../../../core/comps';
-import {MdClose, MdEdit} from 'react-icons/md';
+import {MdClose, MdEdit} from "react-icons/md";
 import {withManager} from "../../../core/entity";
-import HostEntityManager from "./manager";
+import FeatureEntityManager from "./manager";
 
-let HostList: any = (props) => {
+let FeatureList: any = (props) => {
     const {Manager} = props
-    const {data, loading, error, refetch} = useQuery(GET_HOSTS, {
-        fetchPolicy: "network-only",
+    const {data, loading, error, refetch} = useQuery(GET_FEATURES, {
+        fetchPolicy: "cache-and-network",
         context: {headers: {"im-project-tag": "master"}}
     })
-
     const remove = async (arg) => {
         try {
             const res = await Manager?.delete(arg?.id, {
@@ -21,9 +20,9 @@ let HostList: any = (props) => {
                     "im-project-tag": "master"
                 }
             })
-            if (res) alert(`feature has been deleted..!`)
+            if (res) alert(`Host has been deleted..!`)
         } catch (e) {
-            console.warn(e.message, "feature list: remove")
+            console.warn(e.message, "host list: remove")
         } finally {
             await refetch()
         }
@@ -43,16 +42,16 @@ let HostList: any = (props) => {
             <table className="table">
                 <tbody>
                 <tr>
-                    <th>Host Name</th>
-                    <th>Ip Address</th>
-                    <th>Region</th>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th>Unit</th>
                     <th></th>
                 </tr>
-                {data?.hosts?.edges?.map(({node: o}, idx) =>
+                {data?.features?.edges?.map(({node: o}, idx) =>
                     (<tr key={idx}>
                         <td>{o.name}</td>
-                        <td>{o.ip}</td>
-                        <td>{o.region}</td>
+                        <td>{o.cost}</td>
+                        <td>{o.unit}</td>
                         <td>
                             <div className="actions rows gap j-right a-center">
                                 <div className="col">
@@ -71,5 +70,5 @@ let HostList: any = (props) => {
         </div>
     );
 }
-HostList = withManager(HostList, HostEntityManager)
-export default HostList;
+FeatureList = withManager(FeatureList, FeatureEntityManager)
+export default FeatureList;

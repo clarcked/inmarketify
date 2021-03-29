@@ -3,7 +3,7 @@ import {ApolloClient} from "@apollo/client";
 export default class Graphql {
     client: ApolloClient<any>;
 
-    constructor(client) {
+    constructor(client: ApolloClient<any>) {
         this.client = client
     }
 
@@ -13,12 +13,10 @@ export default class Graphql {
         try {
             const res = await this.client.query({...options, query})
             if (res.error) this.error(res.error, "query")
-            console.log(res.networkStatus, "network status")
-            // if (res.networkStatus) this.error(res.error, "query")
             options?.callBack && options?.callBack(res?.data, res)
             return res?.data || null
         } catch (e) {
-            this.error(e, "query")
+            this.error(e, "graphql: query")
         }
     }
 }

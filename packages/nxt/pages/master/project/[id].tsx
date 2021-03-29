@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Head from "next/head";
-import {ProjectList, ProjectMenu} from "../../../app/bundle/master/project";
+import {List, ProjectMenu} from "../../../app/bundle/master/project";
 import {MasterLayout} from "../../../app/bundle/master/comps";
 import {configs} from "../../../app/core/providers";
 
@@ -13,7 +13,7 @@ class Project extends Component<any, any> {
                 </Head>
                 <div className="grid-c-1-a h-expand">
                     <section className="pad">
-                        <ProjectList/>
+                        <List/>
                     </section>
                     <ProjectMenu/>
                 </div>

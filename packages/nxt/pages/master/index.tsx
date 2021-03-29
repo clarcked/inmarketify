@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Head from "next/head";
 import {MasterLayout} from "../../app/bundle/master/comps";
 import {configs} from "../../app/core/providers";
-import {ProjectList, ProjectMenu} from "../../app/bundle/master/project";
+import {ProjectCreator, ProjectMenu} from "../../app/bundle/master/project";
 
 class Index extends Component<any, any> {
     render() {
@@ -13,7 +13,7 @@ class Index extends Component<any, any> {
                 </Head>
                 <div className="grid-c-1-a h-expand">
                     <section className="pad">
-                        <ProjectList/>
+                        <ProjectCreator {...this.props}/>
                     </section>
                     <ProjectMenu/>
                 </div>

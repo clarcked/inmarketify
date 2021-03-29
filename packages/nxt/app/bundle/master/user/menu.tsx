@@ -4,9 +4,8 @@ import {FaSlackHash} from "react-icons/fa";
 import {BiServer} from "react-icons/bi";
 import {FiUserPlus} from "react-icons/fi";
 import Link from "next/link";
-import {IoMdPricetag} from 'react-icons/io';
 
-class ProjectMenu extends Component {
+class UserMenu extends Component {
     render() {
         return (
             <nav className="nav nav-right wire-l">
@@ -25,11 +24,6 @@ class ProjectMenu extends Component {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/master/feature/create">
-                            <a className="is-icon"><IoMdPricetag/></a>
-                        </Link>
-                    </li>
-                    <li>
                         <Link href="/master/user/create">
                             <a className="is-icon"><FiUserPlus/></a>
                         </Link>
@@ -40,4 +34,4 @@ class ProjectMenu extends Component {
     }
 }
 
-export default ProjectMenu;
+export default UserMenu;

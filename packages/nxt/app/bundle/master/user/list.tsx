@@ -1,16 +1,16 @@
 import React, {useEffect} from 'react';
 import {useQuery} from "@apollo/client";
-import {GET_HOSTS} from "./queries";
+import {GET_USERS} from "./queries";
 import {Loader} from '../../../core/comps';
 import {MdClose, MdEdit} from 'react-icons/md';
 import {withManager} from "../../../core/entity";
-import HostEntityManager from "./manager";
+import UserEntityManager from "./manager";
 
-let HostList: any = (props) => {
+let UserList: any = (props) => {
     const {Manager} = props
-    const {data, loading, error, refetch} = useQuery(GET_HOSTS, {
+    const {data, loading, error, refetch} = useQuery(GET_USERS, {
         fetchPolicy: "network-only",
-        context: {headers: {"im-project-tag": "master"}}
+        context: {headers: {"im-project-tag": "main"}}
     })
 
     const remove = async (arg) => {
@@ -21,9 +21,9 @@ let HostList: any = (props) => {
                     "im-project-tag": "master"
                 }
             })
-            if (res) alert(`feature has been deleted..!`)
+            if (res) alert(`user has been deleted..!`)
         } catch (e) {
-            console.warn(e.message, "feature list: remove")
+            console.warn(e.message, "user list: remove")
         } finally {
             await refetch()
         }
@@ -43,16 +43,18 @@ let HostList: any = (props) => {
             <table className="table">
                 <tbody>
                 <tr>
-                    <th>Host Name</th>
-                    <th>Ip Address</th>
-                    <th>Region</th>
+                    <th></th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th></th>
                     <th></th>
                 </tr>
-                {data?.hosts?.edges?.map(({node: o}, idx) =>
+                {data?.users?.edges?.map(({node: o}, idx) =>
                     (<tr key={idx}>
-                        <td>{o.name}</td>
-                        <td>{o.ip}</td>
-                        <td>{o.region}</td>
+                        <td>{o._id}</td>
+                        <td>{o.username}</td>
+                        <td>{o.email}</td>
+                        <td>{o.status}</td>
                         <td>
                             <div className="actions rows gap j-right a-center">
                                 <div className="col">
@@ -60,7 +62,7 @@ let HostList: any = (props) => {
                                 </div>
                                 <div className="col">
                                     <a className="btn btn-icon outline"
-                                       onClick={() => confirm(`Remove ${o?.name} ?`) && remove(o)}><MdClose/></a>
+                                       onClick={() => confirm(`Remove ${o?.username} ?`) && remove(o)}><MdClose/></a>
                                 </div>
                             </div>
                         </td>
@@ -71,5 +73,5 @@ let HostList: any = (props) => {
         </div>
     );
 }
-HostList = withManager(HostList, HostEntityManager)
-export default HostList;
+UserList = withManager(UserList, UserEntityManager)
+export default UserList;

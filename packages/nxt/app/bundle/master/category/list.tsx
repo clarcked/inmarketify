@@ -4,30 +4,35 @@ import {GET_CATEGORIES} from "./queries";
 import {Loader} from '../../../core/comps';
 import {MdClose} from "react-icons/md";
 import {withManager} from "../../../core/entity";
+import CategoryEntityManager from "./manager";
 
 let CategoryList: any = (props) => {
-    const {Manager} = props
+    const {Manager, reset} = props
     const {data, loading, error, refetch} = useQuery(GET_CATEGORIES, {
         fetchPolicy: "cache-and-network",
         context: {headers: {"im-project-tag": "master"}}
     })
+
     const remove = async (o) => {
         try {
-            await Manager.delete(o?.id, {
+            const res = await Manager.delete(o?.id, {
                 headers: {
                     "Content-Type": "application/json",
                     "im-project-tag": "master"
                 }
             });
-            alert("Activity has been deleted..!")
-            await refetch()
+            if (res) alert("Activity has been deleted..!")
         } catch (e) {
             console.warn(e.message, "category list: remove")
+        } finally {
+            await refetch()
+            reset()
         }
     }
+
     useEffect(() => {
         refetch().then()
-    }, [props.Manager])
+    }, [reset, Manager])
 
     if (loading) return <Loader/>
     if (error) console.log(error.message)
@@ -43,5 +48,5 @@ let CategoryList: any = (props) => {
         </div>
     );
 }
-CategoryList = withManager(CategoryList);
+CategoryList = withManager(CategoryList, CategoryEntityManager);
 export default CategoryList;

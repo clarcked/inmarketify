@@ -5,7 +5,7 @@ import {FeatureEntity} from "./entity";
 import FeatureForm from "./form";
 import FeatureEntityManager from "./manager";
 import FeatureMenu from "./menu";
-import FeatureList from "./featureList";
+import List from "./list";
 import {GET_FEATURE, GET_FEATURES, GET_FULL_FEATURES} from "./queries";
 
 export {
@@ -19,5 +19,5 @@ export {
     FeatureCreator,
     FeatureEditor,
     FeatureMenu,
-    FeatureList
+    List
 }

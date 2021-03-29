@@ -1,11 +1,11 @@
 import React from 'react';
 import {withManager} from "../../../core/entity";
 import {useForm} from "react-hook-form";
-import HostForm from "./form";
-import {HostList} from "./index";
-import HostEntityManager from "./manager";
+import UserForm from "./form";
+import UserList from "./list";
+import UserEntityManager from "./manager";
 
-let HostCreator: any = (props) => {
+let UserCreator: any = (props) => {
     const {Manager} = props
     const {handleSubmit, register, reset} = useForm()
     const debug = async (data) => {
@@ -15,22 +15,21 @@ let HostCreator: any = (props) => {
         try {
             const res = await Manager?.create(data, {
                 headers: {
-                    "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "im-project-tag": "master"
+                    "im-project-tag": "main"
                 }
             })
-            if (res) alert(`${res?.name} has been created..!`)
+            if (res) alert(`${res?.username} has been created..!`)
         } catch (e) {
-            console.warn(e.message, "host creator: onSubmit")
+            console.warn(e.message, "user creator: onSubmit")
         }
     }
     return (
         <React.Fragment>
-            <HostForm data={null} reset={reset} onSubmit={handleSubmit(onSubmit)} register={register}/>
-            <HostList {...props} name="hosts"/>
+            <UserForm data={null} reset={reset} onSubmit={handleSubmit(onSubmit)} register={register}/>
+            <UserList {...props} name="users"/>
         </React.Fragment>
     );
 }
-HostCreator = withManager(HostCreator, HostEntityManager)
-export default HostCreator;
+UserCreator = withManager(UserCreator, UserEntityManager)
+export default UserCreator;

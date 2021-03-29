@@ -13,7 +13,7 @@ class Create extends Component<any, any> {
                     <title>InMarketify - Master Dashboard</title>
                 </Head>
                 <div className="grid-c-1-a h-expand">
-                    <section>
+                    <section className="scroll">
                         <CategoryCreator {...this.props} name="categories"/>
                     </section>
                     <ProjectMenu/>

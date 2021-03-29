@@ -25,7 +25,7 @@ class Selector extends Component<TextInputType, { selected: any; is_open: boolea
     }
 
     removeWindowListener() {
-        window.removeEventListener("click", this.handleClick.bind(this));
+        window.removeEventListener("click", this.handleClick);
     }
 
     handleClick(e) {
@@ -88,8 +88,8 @@ class Selector extends Component<TextInputType, { selected: any; is_open: boolea
                 <div className={`control ${icon}`}>
                     {Left && <div className="left">{<Left/>}</div>}
                     <input onFocus={this.handleFocus.bind(this)} defaultValue={this.getName(this.state.selected)}
-                           placeholder={placeholder} className={`input ${className || ""}`} type="text"></input>
-                    {typeof map === "object" ? (
+                           placeholder={placeholder} className={`input ${className || ""}`} type="text"/>
+                    {map && typeof map === "object" ? (
                         map?.map((o, i) => <input key={i} name={`${name}.${o}`} defaultValue={this.getSelectedKey(o)}
                                                   ref={register} type="hidden"/>)
                     ) : (
